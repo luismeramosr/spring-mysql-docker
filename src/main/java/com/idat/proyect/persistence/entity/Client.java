@@ -2,25 +2,19 @@ package com.idat.proyect.persistence.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
-import com.idat.proyect.web.security.EncriptarPassword;
-
-import java.util.List;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
+import javax.persistence.OneToOne;
 
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "client")
+@Table(name = "clients")
 public class Client {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +24,7 @@ public class Client {
      @Column(length = 30)
      private String username;
 
-     @Column(length = 80)
+     @Column(length = 100,name = "_password")
      private String password;
 
      // @Column(name = "idRole")
@@ -51,7 +45,9 @@ public class Client {
      @Column(length = 45)
      private String email;
 
-     private Integer active;
+     private Integer zip_code;
+
+     private Boolean active;
 
      // id_client en el campo que esta en en el entity role
      // @OneToMany
@@ -59,13 +55,18 @@ public class Client {
      @Column(name = "id_rol")
      private Integer idRol;
 
+     @OneToOne(cascade = { CascadeType.ALL })
+     @JoinColumn(name = "id_rol", insertable = false, updatable = false)
+     private Role role;
+
      // un cliente tiene muchas ordenes mappgedby cliente esta en la clase ORDER
      // @OneToMany(mappedBy = "client")
      // private List<Order> orders;
+
      /* ciclo de vida de persistance */
      // @PrePersist
      // void prePersist() {
-     //      // antes de guardar se hara esto
-     //      password = EncriptarPassword.encriptarPassword(password);
+     // // antes de guardar se hara esto
+     // password = EncriptarPassword.encriptarPassword(password);
      // }
 }

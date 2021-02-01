@@ -1,20 +1,21 @@
 package com.idat.proyect.persistence.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Entity
-@Table(name = "category")
+@Table(name = "categorys")
 public class Category {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,11 +28,10 @@ public class Category {
      @Column(length = 45)
      private String description;
 
-     private Integer active;
+     private Boolean active;
 
-     //una categoria puede tener muchos productos
+     // // una categoria puede tener muchos productos
      // @OneToMany(mappedBy = "category")
      // private List<Product> products;
 
-     
 }

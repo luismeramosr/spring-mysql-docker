@@ -2,7 +2,9 @@ package com.idat.proyect.web.controller;
 
 import com.idat.proyect.domain.dto.AuthenticationRequest;
 import com.idat.proyect.domain.dto.AuthenticationResponse;
+import com.idat.proyect.domain.service.ClientService;
 import com.idat.proyect.domain.service.IdatUserDetailsService;
+import com.idat.proyect.persistence.entity.Client;
 import com.idat.proyect.web.security.JWTUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins="*")
+// @CrossOrigin(origins="*")
 public class AuthController {
      // clase de spring security para saber si estas autenticado
      @Autowired
@@ -33,6 +34,10 @@ public class AuthController {
      // componente creado para generarnew AuthenticationResponse(jwt), un jwt
      @Autowired
      private JWTUtil jwtUtil;
+
+     // Servicio de Clientes
+     @Autowired
+     private ClientService clientService;
 
      // usamos nuestra clases dto AuthenticationResponse AuthenticationRequest
 
@@ -48,8 +53,13 @@ public class AuthController {
                // genero un jwt
                String jwt = jwtUtil.generaToken(userDetails);
 
+               // getUser for name
+               Client client = clientService.getUsername(jwtUtil.extractUsername(jwt)).map(Client -> {
+                    return Client;
+               }).orElse(null);
+
                // retorno el jwt si todo sale correcto
-               return new ResponseEntity<>(new AuthenticationResponse(jwt), HttpStatus.OK);
+               return new ResponseEntity<>(new AuthenticationResponse(jwt, client), HttpStatus.OK);
 
           } catch (BadCredentialsException e) {
                // si ocurre una exception de tipo badcredentials retorna un not found

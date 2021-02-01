@@ -3,9 +3,7 @@ package com.idat.proyect.domain.service;
 import java.util.ArrayList;
 
 import com.idat.proyect.persistence.crud.IClientCR;
-import com.idat.proyect.persistence.crud.IRoleCR;
 import com.idat.proyect.persistence.entity.Client;
-import com.idat.proyect.persistence.entity.Role;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,8 +21,6 @@ public class IdatUserDetailsService implements UserDetailsService {
      // por ahora solo tiene un usuario en memoria
      @Autowired
      private IClientCR crud;
-     @Autowired
-     private IRoleCR crudRole;
 
      @Override
      @Transactional(readOnly = true)
@@ -40,14 +36,8 @@ public class IdatUserDetailsService implements UserDetailsService {
           }
           /* creo array de roles */
           var roles = new ArrayList<GrantedAuthority>();
-          /* recorro roles */
-          // for (Role rol : client.getRoles()) {
-          // se agregan los tipos de Roles
-          var rol = crudRole.findById(client.getIdRol()).map(Rol -> {
-               return Rol;
-          }).orElse(null);
-          roles.add(new SimpleGrantedAuthority(rol.getName()));
-          // }
+          roles.add(new SimpleGrantedAuthority(client.getRole().getName()));
+
           // obligatoriamente los roles se tiene que llamar|
           return new User(client.getUsername(), "{bcrypt}" + client.getPassword(), roles);
      }

@@ -5,11 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -20,7 +19,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class Product {
 
      @Id
@@ -28,10 +27,10 @@ public class Product {
      @Column(name = "id")
      private Integer idProduct;
 
-     @Column(name = "idCategory")
+     @Column(name = "id_category")
      private Integer idCategory;
 
-     @Column(name = "idVendor")
+     @Column(name = "id_vendor")
      private Integer idVendor;
 
      @Column(length = 50)
@@ -42,10 +41,10 @@ public class Product {
      @Column(name = "sale_price")
      private Double salePrice;
 
-     @Column(length = 255)
+     @Column(length = 300)
      private String description;
 
-     @Column(length = 100, name = "thumbnail_url")
+     @Column(length = 300, name = "thumbnail_url")
      private String thumbnailUrl;
 
      @Column(name = "date_created")
@@ -57,15 +56,15 @@ public class Product {
      // name : fk
      // @JsonIgnore
      @ManyToOne
-     @JoinColumn(name = "idCategory", insertable = false, updatable = false)
+     @JoinColumn(name = "id_category", insertable = false, updatable = false)
      private Category category;
 
      // @JsonIgnore
      @ManyToOne
-     @JoinColumn(name = "idVendor", insertable = false, updatable = false)
+     @JoinColumn(name = "id_vendor", insertable = false, updatable = false)
      private Vendor vendor;
 
-     @OneToMany(mappedBy = "product")
+     @OneToMany(mappedBy = "product",cascade = {CascadeType.ALL})
      private List<ProductImages> productsImages;
 
 }

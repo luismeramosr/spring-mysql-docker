@@ -8,14 +8,16 @@ import javax.persistence.Embeddable;
 import lombok.Data;
 
 //por que esta sera incluida en otra clase
+
+// @AllArgsConstructor
 @Data
 @Embeddable
 public class OrderDetailsPK implements Serializable {
 
      private static final long serialVersionUID = 1L;
 
-     @Column(name = "idOrder")
+     @Column(name = "id_order")
      private Integer idOrder;
-     @Column(name = "idProduct")
+     @Column(name = "id_product")
      private Integer idProduct;
 }
