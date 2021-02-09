@@ -22,6 +22,10 @@ public class ProductService {
           return productRepository.getProduct(productId);
      }
 
+     public Optional<Product> getBySlug(String slug) {
+          return productRepository.getBySlug(slug);
+     }
+
      public Optional<List<Product>> getIdCategory(int categoryId) {
           return productRepository.getIdCategory(categoryId);
      }
@@ -31,6 +35,7 @@ public class ProductService {
      }
 
      public Product save(Product product) {
+          product.setSlug(product.getName().replace(" ", "-"));
           return productRepository.save(product);
      }
 

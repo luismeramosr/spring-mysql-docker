@@ -11,10 +11,11 @@ INSERT INTO clients (username,_password,first_name,last_name,address,phone,email
 
 INSERT INTO clients (username,_password,first_name,last_name,address,phone,email,zip_code,active,id_rol) VALUES ("luis","$2a$10$2KokS2bM7xXpiWtvAebdCePVA0cbJcMdzAMiMImMOmJxnOu7YhZdW","luis","perez","direccion de prueba","92864471","luis@gmail.com",5001,1,2);
 
+INSERT INTO clients (username,_password,first_name,last_name,address,phone,email,zip_code,active,id_rol) VALUES ("admin", "$2a$10$qTPlOH/tbsyUa7yY/L4BdunHcZ2WdR9m65hVJa8qat3gzAwvhpf6O", "Admin","Perez", "Alguna direccion", "123456789", "mail@mail.com", 15101, 1, 2);
 
-INSERT INTO document_types (doctype) VALUES ("DNI");
-INSERT INTO document_types (doctype) VALUES ("RUC");
-INSERT INTO document_types (doctype) VALUES ("CARNET EXTRANJERO");
+INSERT INTO document_types (doctype) VALUES ("Boleta");
+INSERT INTO document_types (doctype) VALUES ("Factura");
+-- INSERT INTO document_types (doctype) VALUES ("CARNET EXTRANJERO");
 
 INSERT INTO vendors (company,description) VALUES ("BATA","EMPRESA NUMERO 1 EN EL PERU");
 INSERT INTO vendors (company,description) VALUES ("NIKE","EMPRESA EXTRANJERA ZAPATERA");
@@ -23,11 +24,11 @@ INSERT INTO vendors (company,description) VALUES ("Converse","Marca reconocida e
 INSERT INTO payment_types (type) VALUES ("Contra Entrega");
 INSERT INTO payment_types (type) VALUES ("Transferencia");
 
-INSERT INTO order_status (status) VALUES ("on-hold");
-INSERT INTO order_status (status) VALUES ("completed");
-INSERT INTO order_status (status) VALUES ("pending");
-INSERT INTO order_status (status) VALUES ("completed");
-INSERT INTO order_status (status) VALUES ("cancelled");
+INSERT INTO order_status (status) VALUES ("En espera");
+INSERT INTO order_status (status) VALUES ("Por pagar");
+INSERT INTO order_status (status) VALUES ("Pendiente");
+INSERT INTO order_status (status) VALUES ("Entregado");
+INSERT INTO order_status (status) VALUES ("Cancelado");
 
 INSERT INTO products (id_category,id_vendor,name ,price,sale_price ,description,thumbnail_url,stock,date_created) VALUES (1,1,"Converse Ct As High Street",203.9,200.0,"Zapatillas de tobillo con cordones para hombre de Converse","https://mister-mango.omni.la/ProductCatalog/Workspace.CWDQQL6GUIJMS/ProductCatalog.CZGGMCYNRPA6E/160x240/CZGKQOS35CTRI.jpg",100,"2020-01-12");
 
@@ -44,12 +45,22 @@ INSERT INTO product_images (id_product,url) VALUES (2,"https://mister-mango.omni
 
 INSERT INTO orders (id_client,subtotal,igv,total,shipping_address,comment,zip_code,id_document_type,id_order_status,id_payment_status,date_created) VALUES (1,600,18,618,"Direccion de entrega de prueba","Por favor dejar los zapatos en mi puerta",5001,1,1,1,"2021-01-12");
 
-INSERT INTO orders (id_client,subtotal,igv,total,shipping_address,comment,zip_code,id_document_type,id_order_status,id_payment_status,date_created) VALUES (1,800,18,818,"Av La Molina 202","Por favor tocar el timbre antes de la entrega",5661,1,1,1,"2021-01-28");
+INSERT INTO orders (id_client,subtotal,igv,total,shipping_address,comment,zip_code,id_document_type,id_order_status,id_payment_status,date_created) VALUES (2,800,18,818,"Av La Molina 202","Por favor tocar el timbre antes de la entrega",5661,1,2,1,"2021-01-28");
+
+INSERT INTO orders (id_client,subtotal,igv,total,shipping_address,comment,zip_code,id_document_type,id_order_status,id_payment_status,date_created) VALUES (3,600,18,618,"Direccion de entrega de prueba","Por favor dejar los zapatos en mi puerta",5001,1,3,1,"2021-01-12");
+
+INSERT INTO orders (id_client,subtotal,igv,total,shipping_address,comment,zip_code,id_document_type,id_order_status,id_payment_status,date_created) VALUES (1,800,18,818,"Alguna direccion","Llamar al llegar porfavor",5661,1,4,1,"2021-01-28");
+
+INSERT INTO orders (id_client,subtotal,igv,total,shipping_address,comment,zip_code,id_document_type,id_order_status,id_payment_status,date_created) VALUES (2,600,18,618,"Las cucardas :v","Deberás llegar antes de 30 minutos :v",5001,1,5,1,"2021-01-12");
+
 
 INSERT INTO order_details (id_order,id_product,price,quantity) VALUES (1,1,200,3);
 
 INSERT INTO order_details (id_order,id_product,price,quantity) VALUES (2,2,400,2);
 
+INSERT INTO order_details (id_order,id_product,price,quantity) VALUES (3,2,400,2);
+INSERT INTO order_details (id_order,id_product,price,quantity) VALUES (4,2,400,2);
+INSERT INTO order_details (id_order,id_product,price,quantity) VALUES (5,2,400,2);
 
 INSERT INTO vouchers (amount,id_client,id_operation,id_client_account,id_store_account,image_url,created_at) VALUES (3,1,1321321,1,1,"https://www.printablesample.com/wp-content/uploads/2017/04/gift-vouchers-8.jpg","2021-01-29");
 

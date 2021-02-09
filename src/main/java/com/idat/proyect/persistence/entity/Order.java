@@ -28,7 +28,7 @@ public class Order {
      @Column(name = "id")
      private Integer idOrder;
 
-     @Column(name = "id_client")
+     @Column(name = "id_client", unique= false)
      private Integer idClient;
 
      private Double subtotal;
@@ -67,19 +67,19 @@ public class Order {
      // private Client client;
 
      @ManyToOne
-     @JoinColumn(name = "id_client", insertable = false, updatable = false)
+     @JoinColumn(name = "id_client", insertable = false, updatable = false, unique= false)
      private Client client;
 
      @ManyToOne
-     @JoinColumn(name = "id_document_type", insertable = false, updatable = false)
+     @JoinColumn(name = "id_document_type", insertable = false, updatable = false, unique= false)
      private DocumentType documentType;
 
      @ManyToOne
-     @JoinColumn(name = "id_order_status", insertable = false, updatable = false)
+     @JoinColumn(name = "id_order_status", insertable = false, updatable = false, unique= false)
      private OrderStatus orderStatus;
 
      @ManyToOne
-     @JoinColumn(name = "id_payment_status", insertable = false, updatable = false)
+     @JoinColumn(name = "id_payment_status", insertable = false, updatable = false, unique= false)
      private PaymentType paymentType;
 
      // todas compras tendran en cascada sus productos
