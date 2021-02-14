@@ -1,6 +1,7 @@
 db
 db/*.cnf
 db/#innodb_temp/*.ibt
+uploads/
 # HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
