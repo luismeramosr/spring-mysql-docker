@@ -74,12 +74,17 @@ public class ClientController {
           Client currentClient = clientService.getClient(client.getIdClient()).map(Client -> {
                return Client;
           }).orElse(null);
+          currentClient.setUsername(client.getUsername());
           currentClient.setAddress(client.getAddress());
           currentClient.setActive(client.getActive());
           currentClient.setPhone(client.getPhone());
           currentClient.setFirstName(client.getFirstName());
           currentClient.setLastName(client.getLastName());
-          currentClient.setPassword(client.getPassword());
+          if (client.getPassword()!="") {
+            currentClient.setPassword(client.getPassword());
+          } else {
+            currentClient.setPassword(currentClient.getPassword());
+          }
           return new ResponseEntity<>(clientService.save(currentClient), HttpStatus.CREATED);
      }
 
